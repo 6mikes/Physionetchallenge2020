@@ -9,7 +9,7 @@ def run_12ECG_classifier(data,header_data,classes,model):
     num_classes = len(classes)
     current_label = np.zeros(num_classes, dtype=int)
     current_score = np.zeros(num_classes)
-    scaler = joblib.load('scaler_v1.joblib')    #Edw
+    scaler = joblib.load('scaler_29042020.joblib')    #Edw
 
     # Use your classifier here to obtain a label and score for each class. 
     features=np.asarray(get_12ECG_features(data,header_data))
@@ -24,7 +24,7 @@ def run_12ECG_classifier(data,header_data,classes,model):
     label[label <= 0.3] = 0
     label = label == 1
     label = np.where(label == 1)[1]
-    current_label[label] = 1
+    current_label[label] = 1    #Todo: When is test in local, it has to be with files with all clases, otherwise gonna give error: IndexError: index 6 is out of bounds for axis 0 with size ...
 
     for i in range(num_classes):
         current_score[i] = np.array(score[0][i])
@@ -34,6 +34,6 @@ def run_12ECG_classifier(data,header_data,classes,model):
 def load_12ECG_model():
     from keras.models import load_model  # Edw
     # load the model from disk
-    loaded_model = load_model('mlp_19042020.h5')
+    loaded_model = load_model('mlp_29042020.h5')
 
     return loaded_model
